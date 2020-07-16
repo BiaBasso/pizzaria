@@ -26,7 +26,7 @@ export default function Home() {
         async function fetchData() {
             try {
                 const pizzas = await api.get('/pizzas'); // Para trazer as infos das pizzas
-                const suggestion = await api.get('/pizzas/suggestion'); // Para trazer as sugetoes
+                const suggestion = await api.get('/pizzas/suggestion'); // Para trazer as sugestões
 
                 setPizzasData(pizzas);
                 setSuggestionData(suggestion);
@@ -97,18 +97,18 @@ export default function Home() {
     }
 
     function handleFlavorChange(event) {
-        console.log({ event })
-        // setPizzaFlavor(event.target);
+        console.log({ event });
+        setPizzaFlavor(event.target.value);
     }
 
     function handleSizeChange(event) {
-        console.log({ event })
-        // setPizzaSize(event.target);
+        console.log({ event: event.target.value });
+        setPizzaSize(event.target.value);
     }
 
     function handleCrustTypeChange(event) {
-        console.log({ event })
-        // setPizzaCrustType(event.target);
+        console.log({ event });
+        setPizzaCrustType(event.target.value);
     }
 
     async function handleSubmit(e) {
@@ -123,11 +123,9 @@ export default function Home() {
         };
 
         try {
-
-            // Chamando a api com o método POST para salvar uma ong (se passa primeiro a rota e depois o valor, por padrão o axios já manda tudo em JSON)
             const response = await api.post('/pizzas', data);
 
-            alert(`Feito: ${response.data.data.message}`);
+            alert(`Feito: ${response.data.message}`);
             console.log({ data });
 
         } catch (err) {
@@ -142,26 +140,26 @@ export default function Home() {
         <div>
             <h1>A Wizard Form!</h1>
             <p>Step {currentStep} </p>
-            <form onSubmit={() => handleSubmit()}>
+            <form>
 
                 <Step1
                     currentStep={currentStep}
-                    handleChange={handleSizeChange()}
+                    handleChange={handleSizeChange}
                     options={sizeOptions}
                 />
                 <Step2
                     currentStep={currentStep}
-                    handleChange={handleCrustTypeChange()}
+                    handleChange={handleCrustTypeChange}
                     crustType={crustTypeOptions}
                 />
                 <Step3
                     currentStep={currentStep}
-                    handleChange={handleFlavorChange()}
+                    handleChange={handleFlavorChange}
                     flavor={flavorOptions}
                 />
                 {previousButton()}
                 {nextButton()}
-
+                <button type="submit" onClick={(e) => handleSubmit(e)} className="btn btn-success btn-block"> PEDE A PIZZA CARALHOOO </button>
             </form>
 
         </div>
