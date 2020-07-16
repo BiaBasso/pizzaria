@@ -7,6 +7,10 @@ import Suggestion from '../../components/Suggestion';
 
 import api from '../../services/api';
 
+import pizzaMontagem from '../../assets/montagem-pizza.jpg';
+
+import style from '../../style.css';
+
 export default function Home() {
 
     const [currentStep, setCurrentStep] = useState(1);
@@ -173,70 +177,88 @@ export default function Home() {
             <h4>A seguir, você pode escolher entre a pizza do dia ou montar a sua pizza.</h4>
 
             <form>
-                <button onClick={() => setIsCreatePizzaClicked(true)}> Clique aqui para montar sua pizza </button>
 
-                <div className="form-group">
-
-                    <span>Caso opte pela pizza do dia, selecione a opção a seguir.</span>
-
-                    <Suggestion
-                        handleChange={handleSuggestion}
-                        options={suggestionOptions}
-                    />
-                </div>
-
-                <div className="form-group">
-                    <span>Senão, siga os passos para montar a sua pizza.</span>
-                    <p>Passo {currentStep} </p>
-                </div>
-
-                {currentStep === 1 && (
-                    <div className="form-group">
-                    <Step1
-                        currentStep={currentStep}
-                        handleChange={handleSizeChange}
-                        options={sizeOptions}
-                    />
+                <div className="row">
+                    <div className="col-md-6">
+                        <span>Montagem da pizza.</span>
+                        <img className="photo" src={pizzaMontagem} alt="pizzaMontagem" onClick={() => setIsCreatePizzaClicked(true)}/>
                     </div>
+
+                    <div className="col-md-6">
+                        {isCreatePizzaClicked === false && (
+
+                            <div className="form-group">
+                                <Suggestion
+                                    handleChange={handleSuggestion}
+                                    options={suggestionOptions}
+                                />
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {isCreatePizzaClicked && (
+                    <div className="row">
+                        <div className="col-md">
+                            <div className="form-group">
+
+                                <p>Passo {currentStep} </p>
+                            </div>
+
+                            {currentStep === 1 && (
+                                <div className="form-group">
+                                    <Step1
+                                        currentStep={currentStep}
+                                        handleChange={handleSizeChange}
+                                        options={sizeOptions}
+                                    />
+                                </div>
+                            )}
+
+                            {currentStep === 2 && (
+                                <div className="form-group">
+
+                                    {console.log(currentStep)}
+
+                                    <Step2
+                                        currentStep={currentStep}
+                                        handleChange={handleCrustTypeChange}
+                                        options={crustTypeOptions}
+                                    />
+                                </div>
+                            )}
+
+                            {currentStep === 3 && (
+                                <div className="form-group">
+
+                                    <Step3
+                                        currentStep={currentStep}
+                                        handleChange={handleFlavorChange}
+                                        options={flavorOptions}
+                                    />
+                                </div>
+                            )}
+
+                            <div className="form-group">
+                                <div className="row">
+                                    <div className="col-md">
+                                        {previousButton()}
+                                        {nextButton()}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <div className="row">
+                                    <div className="col-md">
+                                        {submitBtn()}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 )}
-                
-                <div className="form-group">
-
-                    {console.log(currentStep)}
-
-                    <Step2
-                        currentStep={currentStep}
-                        handleChange={handleCrustTypeChange}
-                        options={crustTypeOptions}
-                    />
-                </div>
-
-                <div className="form-group">
-
-                    <Step3
-                        currentStep={currentStep}
-                        handleChange={handleFlavorChange}
-                        options={flavorOptions}
-                    />
-                </div>
-
-                <div className="form-group">
-                    <div className="row">
-                        <div className="col-md">
-                            {previousButton()}
-                            {nextButton()}
-                        </div>
-                    </div>
-                </div>
-
-                <div className="form-group">
-                    <div className="row">
-                        <div className="col-md">
-                            {submitBtn()}
-                        </div>
-                    </div>
-                </div>
-
             </form>
 
         </div>

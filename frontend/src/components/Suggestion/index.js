@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import pizza_img from '../../assets/pizza_img.jpg';
-import style from './style.css';
+import style from '../../style.css';
 
 export default function Suggestion({ options, handleChange }) {
 
@@ -9,11 +9,10 @@ export default function Suggestion({ options, handleChange }) {
 
     return (
         <div className="form-group">
-            <label>Opção do dia</label>
             <div key={options.id}>
                 <div className="row">
                     <div className="col-md">
-                        <span>Tamanho: {options.size}, Tipo: {options.crustType} e Sabor: {options.flavor}</span>
+                        <span>Sugestão do dia: Tamanho {options.size}, massa {options.crustType} e sabor {options.flavor}</span>
                     </div>
                 </div>
 

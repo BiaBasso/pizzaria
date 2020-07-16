@@ -7,20 +7,20 @@ module.exports = {
 
         const pizzas = {
             size: [
-                {id: 1, value: 'p', label: 'Pequeno'},
-                {id: 2, value: 'm', label: 'Médio'},
-                {id: 3, value: 'g', label: 'Grande'}
+                {id: 1, value: 'pequena', label: 'Pequeno'},
+                {id: 2, value: 'media', label: 'Médio'},
+                {id: 3, value: 'grande', label: 'Grande'}
             ],
             crustType: [
-                {id: 1, value: 'slim', label: 'Fina'},
-                {id: 2, value: 'large', label: 'Grossa'}
+                {id: 1, value: 'fina', label: 'Fina'},
+                {id: 2, value: 'grossa', label: 'Grossa'}
             ],
             flavor: [
                 {id: 1, value: 'pepperoni', label: 'Pepperoni'},
                 {id: 2, value: 'mussarela', label: 'Mussarela'},
                 {id: 3, value: 'atum', label: 'Atum'},
-                {id: 4, value: 'chicken', label: 'Frango com catupiry'},
-                {id: 5, value: 'portuguese', label: 'Portuguesa'},
+                {id: 4, value: 'frango_catupiry', label: 'Frango com catupiry'},
+                {id: 5, value: 'portuguesa', label: 'Portuguesa'},
             ]
         };
 
@@ -59,38 +59,38 @@ module.exports = {
         const suggestion = [
             {
                 id: 1,
-                size: 'p',
-                crustType: 'slim',
+                size: 'pequena',
+                crustType: 'fina',
                 flavor: 'pepperoni'
             },
             {
                 id: 2,
-                size: 'm',
-                crustType: 'large',
+                size: 'media',
+                crustType: 'grossa',
                 flavor: 'mussarela'
             },
             {
                 id: 3,
-                size: 'g',
-                crustType: 'slim',
+                size: 'grande',
+                crustType: 'fina',
                 flavor: 'atum'
             },
             {
                 id: 4,
-                size: 'p',
-                crustType: 'large',
-                flavor: 'chicken'
+                size: 'pequena',
+                crustType: 'grossa',
+                flavor: 'frango com catupiry'
             },
             {
                 id: 5,
-                size: 'm',
-                crustType: 'slim',
-                flavor: 'portuguese'
+                size: 'media',
+                crustType: 'fina',
+                flavor: 'portuguesa'
             },
             {
                 id: 6,
-                size: 'g',
-                crustType: 'large',
+                size: 'grande',
+                crustType: 'grossa',
                 flavor: 'pepperoni'
             }
         ];
@@ -99,6 +99,13 @@ module.exports = {
         const randomSuggestion = suggestion[Math.floor(Math.random() * suggestion.length)];
 
         return response.json({ randomSuggestion });
+    },
+
+    async resultPizzas(request, response) {
+
+        const result = await connection('pizza').select('*');
+
+        return response.json(result);
     }
 }
 
