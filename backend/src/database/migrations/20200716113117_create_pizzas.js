@@ -6,6 +6,7 @@ exports.up = function(knex) {
         table.string('size').notNullable();
         table.string('crustType').notNullable();
         table.string('flavor').notNullable();
+        table.string('points').notNullable();
     });
 };
 

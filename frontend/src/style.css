@@ -1,4 +1,8 @@
 .photo {
     height: 250px;
-    width: 500px;
+    width: 400px;
+  }
+
+  .btns {
+    margin-top: 2%;
   }

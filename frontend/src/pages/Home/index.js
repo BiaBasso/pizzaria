@@ -27,6 +27,7 @@ export default function Home() {
     const [pizzasData, setPizzasData] = useState({});
     const [suggestionData, setSuggestionData] = useState([]);
     const [isCreatePizzaClicked, setIsCreatePizzaClicked] = useState(false);
+    const [pointsAmount, setPointsAmount] = useState(0);
 
     // Funções para capturar os resultados do backend
     useEffect(() => {
@@ -138,15 +139,11 @@ export default function Home() {
         setPizzaCrustType(event.target.value);
     }
 
-    function handleSuggestion(event) {
-
-        console.log({ event: event.target.value });
-
-        setPizzaSuggestion(event.target.value);
-    }
 
     // Função para salvar a montagem da pizza na base de dados
     async function handleSubmit(e) {
+
+        setPointsAmount(0);
 
         e.preventDefault();
 
@@ -154,7 +151,7 @@ export default function Home() {
         const data = {
             size: pizzaSize,
             crustType: pizzaCrustType,
-            flavor: pizzaFlavor
+            flavor: pizzaFlavor,
         };
 
         try {
@@ -162,6 +159,45 @@ export default function Home() {
 
             alert(`Feito: ${response.data.message}`);
             console.log({ data });
+
+        } catch (err) {
+
+            alert('Erro no cadastro');
+        }
+    }
+
+    // Função para salvar a montagem da pizza na base de dados
+    async function handleSubmitSuggestion(e) {
+
+        setPizzaSuggestion(e.target.value);
+
+        console.log('entrei aqui');
+
+        setPointsAmount(50);
+
+        console.log(pointsAmount);
+
+        e.preventDefault();
+
+        // Para armazenar os valores dos campos
+        try {
+            if (suggestionData && suggestionData.data && suggestionData.data.randomSuggestion) {
+                const data = {
+                    size: suggestionData.data.randomSuggestion.size,
+                    crustType: suggestionData.data.randomSuggestion.crustType,
+                    flavor: suggestionData.data.randomSuggestion.flavor,
+                    points: pointsAmount
+                };
+
+                console.log(pointsAmount);
+
+                const response = await api.post('/pizzas', data);
+
+                console.log({ response });
+
+                alert(`Feito: ${response.data.message}`);
+                console.log({ data });
+            }
 
         } catch (err) {
 
@@ -179,18 +215,24 @@ export default function Home() {
             <form>
 
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-5">
                         <span>Montagem da pizza.</span>
-                        <img className="photo" src={pizzaMontagem} alt="pizzaMontagem" onClick={() => setIsCreatePizzaClicked(true)}/>
+                        <img className="photo" src={pizzaMontagem} alt="pizzaMontagem" />
+                        
+                        <div className="row btns">
+                            <div className="col-md">
+                                <button type="submit" className="btn btn-primary btn-sm" onClick={() => setIsCreatePizzaClicked(true)}> Monte sua pizza! </button>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="col-md-6">
+                    <div className="col-md-7">
                         {isCreatePizzaClicked === false && (
 
                             <div className="form-group">
                                 <Suggestion
-                                    handleChange={handleSuggestion}
                                     options={suggestionOptions}
+                                    handleSubmitSug={handleSubmitSuggestion}
                                 />
                             </div>
                         )}
@@ -208,7 +250,6 @@ export default function Home() {
                             {currentStep === 1 && (
                                 <div className="form-group">
                                     <Step1
-                                        currentStep={currentStep}
                                         handleChange={handleSizeChange}
                                         options={sizeOptions}
                                     />
@@ -218,10 +259,7 @@ export default function Home() {
                             {currentStep === 2 && (
                                 <div className="form-group">
 
-                                    {console.log(currentStep)}
-
                                     <Step2
-                                        currentStep={currentStep}
                                         handleChange={handleCrustTypeChange}
                                         options={crustTypeOptions}
                                     />
@@ -232,7 +270,6 @@ export default function Home() {
                                 <div className="form-group">
 
                                     <Step3
-                                        currentStep={currentStep}
                                         handleChange={handleFlavorChange}
                                         options={flavorOptions}
                                     />

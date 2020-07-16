@@ -30,15 +30,13 @@ module.exports = {
     async create(request, response) {
 
         // para não permitir que o usuário preencha algo que não deveria
-        const { size, crustType, flavor, hasUserClickOnSuggestion } = request.body;
+        const { size, crustType, flavor, points } = request.body;
 
-        let points = 0;
         let message = "Sua pizza foi recebida pela pizzaria e logo será entregue."
 
-        if (hasUserClickOnSuggestion) {
+        if (points != 0 ) {
 
             message = "Parabéns, você ganhou 50 pontos ao escolher a pizza do dia! Sua pizza foi recebida pela pizzaria e logo será entregue."
-            points = 50; 
         }
 
         const id = crypto.randomBytes(4).toString('HEX');
@@ -48,7 +46,7 @@ module.exports = {
             size,
             crustType,
             flavor,
-            
+            points            
         });
 
         return response.json({ points, id, message });
