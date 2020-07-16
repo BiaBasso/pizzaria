@@ -2,84 +2,99 @@ import React, { useState } from 'react';
 
 export default function Step1({ currentStep, options, handleChange }) {
 
-  if (currentStep !== 1) {
+  console.log(currentStep);
+
+  if (currentStep === 1) {
+
+    return (
+      <div className="form-group">
+        <label>Selecione o tamanho da pizza</label>
+        {options ?
+          options.map(element => {
+            return (
+              <div key={element.id}>
+                <input
+                  // className="form-control"
+                  id={element.id}
+                  name="radio"
+                  type="radio"
+                  value={element.value}
+                  onChange={e => handleChange(e)}
+                />
+                <span> {element.label} </span>
+              </div>
+            );
+          }) : null}
+      </div>
+    );
+  } else {
+
     return null;
   }
-
-  return (
-    <div className="form-group">
-      {options ?
-      options.map(element => {
-        return (
-          <div key={element.id}>
-            <input
-              // className="form-control"
-              id={element.id}
-              name="radio"
-              type="radio"
-              value={element.value}
-              onChange={e => handleChange(e)}
-            />
-            <span> {element.label} </span>
-          </div>
-        );
-      }) : null}
-    </div>
-  );
 }
 
 export function Step2({ currentStep, options, handleChange }) {
 
-  if (currentStep !== 2) {
+  console.log(currentStep);
+
+  if (currentStep === 2) {
+
+    return (
+      <div className="form-group">
+        <label>Selecione o tipo da massa</label>
+        {options ?
+          options.map(element => {
+            return (
+              <div key={element.id}>
+                <input
+                  // className="form-control"
+                  id={element.id}
+                  name="radio"
+                  type="radio"
+                  value={element.value}
+                  onChange={e => handleChange(e)}
+                />
+                <span> {element.label} </span>
+              </div>
+            );
+          }) : null}
+      </div>
+    );
+  } else {
+
     return null;
   }
-
-  return (
-    <div className="form-group">
-      {options ?
-      options.map(element => {
-        return (
-          <div key={element.id}>
-            <input
-              // className="form-control"
-              id={element.id}
-              name="radio"
-              type="radio"
-              value={element.value}
-              onChange={e => handleChange(e)}
-            />
-            <span> {element.label} </span>
-          </div>
-        );
-      }) : null}
-    </div>
-  );
 }
 
 export function Step3({ currentStep, options, handleChange }) {
 
-  if (currentStep !== 3) {
+  console.log(currentStep);
+
+  if (currentStep === 3) {
+
+    return (
+      <div className="form-group">
+        <label>Selecione o sabor da pizza</label>
+        {options ?
+          options.map(element => {
+            return (
+              <div key={element.id}>
+                <input
+                  // className="form-control"
+                  id={element.id}
+                  name="radio"
+                  type="radio"
+                  value={element.value}
+                  onChange={e => handleChange(e)}
+                />
+                <span> {element.label} </span>
+              </div>
+            );
+          }) : null}
+      </div>
+    );
+  } else {
+
     return null;
   }
-
-  return (
-    <div className="form-group">
-      {options ?
-      options.map(element => {
-        return (
-          <div key={element.id}>
-            <input
-              // className="form-control"
-              id={element.id}
-              name="radio"
-              type="radio"
-              value={element.value}
-              onChange={e => handleChange(e)}
-            />
-            <span> {element.label} </span>
-          </div>
-        );
-      }) : null}
-    </div>
-  );
 }

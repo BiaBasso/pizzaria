@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Step1 from '../../components/Steps';
 import Step2 from '../../components/Steps';
 import Step3 from '../../components/Steps';
+import Suggestion from '../../components/Suggestion';
 
 import api from '../../services/api';
 
@@ -22,6 +23,7 @@ export default function Home() {
     const [pizzasData, setPizzasData] = useState({});
     const [suggestionData, setSuggestionData] = useState([]);
 
+    // Funções para capturar os resultados do backend
     useEffect(() => {
         async function fetchData() {
             try {
@@ -45,6 +47,7 @@ export default function Home() {
         console.log({ pizzasData: pizzasData.data });
 
         if (pizzasData && pizzasData.data && pizzasData.data.size && pizzasData.data.crustType && pizzasData.data.flavor) {
+
             setSizeOptions(pizzasData.data.size);
             setCrustTypeOptions(pizzasData.data.crustType);
             setFlavorOptions(pizzasData.data.flavor);
@@ -53,16 +56,19 @@ export default function Home() {
 
     useEffect(() => {
         if (suggestionData && suggestionData.data && suggestionData.data.randomSuggestion) {
+
             setSuggestionOptions(suggestionData.data.randomSuggestion);
         }
     }, [suggestionData])
 
     // Funções para mudar de página
     function _next() {
-        setCurrentStep(currentStep <= 2 ? 3 : currentStep + 1);
+
+        setCurrentStep(currentStep >= 2 ? 3 : currentStep + 1);
     }
 
     function _prev() {
+
         setCurrentStep(currentStep <= 1 ? 1 : currentStep - 1);
     }
 
@@ -75,7 +81,7 @@ export default function Home() {
                 <button
                     className="btn btn-secondary"
                     type="button" onClick={() => _prev()}>
-                    Previous
+                    Anterior
                 </button>
             )
         }
@@ -89,13 +95,29 @@ export default function Home() {
                 <button
                     className="btn btn-primary float-right"
                     type="button" onClick={() => _next()}>
-                    Next
+                    Próximo
                 </button>
             )
         }
         return null;
     }
 
+    function submitBtn() {
+
+        if (currentStep === 3) {
+            return (
+                <button
+                    type="submit"
+                    onClick={(e) => handleSubmit(e)}
+                    className="btn btn-success">
+                    Fazer pedido!
+                </button>
+            )
+        }
+        return null;
+    }
+
+    // Funções para capturar os valores selecionados nos componentes
     function handleFlavorChange(event) {
         console.log({ event: event.target.value });
         setPizzaFlavor(event.target.value);
@@ -111,6 +133,7 @@ export default function Home() {
         setPizzaCrustType(event.target.value);
     }
 
+    // Função para salvar a montagem da pizza na base de dados
     async function handleSubmit(e) {
 
         e.preventDefault();
@@ -137,29 +160,73 @@ export default function Home() {
     // Renderizando o HTML
     return (
 
-        <div>
-            <h1>The best pizza!</h1>
-            <p>Step {currentStep} </p>
+        <div className="container">
+            <h1>Seja bem vindo!</h1>
+            <h4>A seguir, você pode escolher entre a pizza do dia ou montar a sua pizza.</h4>
+
             <form>
 
-                <Step1
-                    currentStep={currentStep}
-                    handleChange={handleSizeChange}
-                    options={sizeOptions}
-                />
-                <Step2
-                    currentStep={currentStep}
-                    handleChange={handleCrustTypeChange}
-                    options={crustTypeOptions}
-                />
-                <Step3
-                    currentStep={currentStep}
-                    handleChange={handleFlavorChange}
-                    options={flavorOptions}
-                />
-                {previousButton()}
-                {nextButton()}
-                <button type="submit" onClick={(e) => handleSubmit(e)} className="btn btn-success btn-block"> Fazer pedido!</button>
+                <div className="form-group">
+
+                    <span>Caso opte pela pizza do dia, selecione a opção a seguir.</span>
+
+                    <Suggestion
+                        handleChange={handleSizeChange}
+                        options={suggestionOptions}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <span>Senão, siga os passos para montar a sua pizza.</span>
+                    <p>Passo {currentStep} </p>
+                </div>
+
+                <div className="form-group">
+
+                    <Step1
+                        currentStep={currentStep}
+                        handleChange={handleSizeChange}
+                        options={sizeOptions}
+                    />
+                </div>
+
+                <div className="form-group">
+
+                    {console.log(currentStep)}
+
+                    <Step2
+                        currentStep={currentStep}
+                        handleChange={handleCrustTypeChange}
+                        options={crustTypeOptions}
+                    />
+                </div>
+
+                <div className="form-group">
+
+                    <Step3
+                        currentStep={currentStep}
+                        handleChange={handleFlavorChange}
+                        options={flavorOptions}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <div className="row">
+                        <div className="col-md">
+                            {previousButton()}
+                            {nextButton()}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <div className="row">
+                        <div className="col-md">
+                            {submitBtn()}
+                        </div>
+                    </div>
+                </div>
+
             </form>
 
         </div>

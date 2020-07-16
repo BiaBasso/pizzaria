@@ -1,15 +1,23 @@
+import React, { useState } from 'react';
 
-import React from 'react';
-import PropTypes from 'prop-types';
+export default function Suggestion({ options, handleChange }) {
 
-const Suggestion = ({data}) => {
     return (
-    <div> {data} </div>
-    )
+        <div className="form-group">
+            <label>Opção do dia</label>
+            <div key={options}>
+                <button
+                    className="btn btn-warning"
+                    id={options}
+                    name="radio"
+                    type="button"
+                    value={options}
+                    onChange={e => handleChange(e)}
+                >
+                    Pizza do dia
+                </button>                
+            </div>
+
+        </div>
+    );
 }
-
-Suggestion.propTypes = {
-
-}
-
-export default Suggestion;
