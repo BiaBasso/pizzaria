@@ -4,6 +4,8 @@ export default function Step1({ currentStep, options, handleChange }) {
 
   console.log(currentStep);
 
+  console.log(options);
+
   if (currentStep === 1) {
 
     return (

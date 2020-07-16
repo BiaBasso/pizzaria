@@ -58,31 +58,37 @@ module.exports = {
 
         const suggestion = [
             {
+                id: 1,
                 size: 'p',
                 crustType: 'slim',
                 flavor: 'pepperoni'
             },
             {
+                id: 2,
                 size: 'm',
                 crustType: 'large',
                 flavor: 'mussarela'
             },
             {
+                id: 3,
                 size: 'g',
                 crustType: 'slim',
                 flavor: 'atum'
             },
             {
+                id: 4,
                 size: 'p',
                 crustType: 'large',
                 flavor: 'chicken'
             },
             {
+                id: 5,
                 size: 'm',
                 crustType: 'slim',
                 flavor: 'portuguese'
             },
             {
+                id: 6,
                 size: 'g',
                 crustType: 'large',
                 flavor: 'pepperoni'

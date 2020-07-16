@@ -22,6 +22,7 @@ export default function Home() {
 
     const [pizzasData, setPizzasData] = useState({});
     const [suggestionData, setSuggestionData] = useState([]);
+    const [isCreatePizzaClicked, setIsCreatePizzaClicked] = useState(false);
 
     // Funções para capturar os resultados do backend
     useEffect(() => {
@@ -133,6 +134,13 @@ export default function Home() {
         setPizzaCrustType(event.target.value);
     }
 
+    function handleSuggestion(event) {
+
+        console.log({ event: event.target.value });
+
+        setPizzaSuggestion(event.target.value);
+    }
+
     // Função para salvar a montagem da pizza na base de dados
     async function handleSubmit(e) {
 
@@ -165,13 +173,14 @@ export default function Home() {
             <h4>A seguir, você pode escolher entre a pizza do dia ou montar a sua pizza.</h4>
 
             <form>
+                <button onClick={() => setIsCreatePizzaClicked(true)}> Clique aqui para montar sua pizza </button>
 
                 <div className="form-group">
 
                     <span>Caso opte pela pizza do dia, selecione a opção a seguir.</span>
 
                     <Suggestion
-                        handleChange={handleSizeChange}
+                        handleChange={handleSuggestion}
                         options={suggestionOptions}
                     />
                 </div>
@@ -181,15 +190,16 @@ export default function Home() {
                     <p>Passo {currentStep} </p>
                 </div>
 
-                <div className="form-group">
-
+                {currentStep === 1 && (
+                    <div className="form-group">
                     <Step1
                         currentStep={currentStep}
                         handleChange={handleSizeChange}
                         options={sizeOptions}
                     />
-                </div>
-
+                    </div>
+                )}
+                
                 <div className="form-group">
 
                     {console.log(currentStep)}
