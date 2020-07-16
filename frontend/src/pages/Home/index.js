@@ -97,7 +97,7 @@ export default function Home() {
     }
 
     function handleFlavorChange(event) {
-        console.log({ event });
+        console.log({ event: event.target.value });
         setPizzaFlavor(event.target.value);
     }
 
@@ -107,7 +107,7 @@ export default function Home() {
     }
 
     function handleCrustTypeChange(event) {
-        console.log({ event });
+        console.log({ event: event.target.value });
         setPizzaCrustType(event.target.value);
     }
 
