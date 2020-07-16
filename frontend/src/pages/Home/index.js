@@ -138,7 +138,7 @@ export default function Home() {
     return (
 
         <div>
-            <h1>A Wizard Form!</h1>
+            <h1>The best pizza!</h1>
             <p>Step {currentStep} </p>
             <form>
 
@@ -150,16 +150,16 @@ export default function Home() {
                 <Step2
                     currentStep={currentStep}
                     handleChange={handleCrustTypeChange}
-                    crustType={crustTypeOptions}
+                    options={crustTypeOptions}
                 />
                 <Step3
                     currentStep={currentStep}
                     handleChange={handleFlavorChange}
-                    flavor={flavorOptions}
+                    options={flavorOptions}
                 />
                 {previousButton()}
                 {nextButton()}
-                <button type="submit" onClick={(e) => handleSubmit(e)} className="btn btn-success btn-block"> PEDE A PIZZA CARALHOOO </button>
+                <button type="submit" onClick={(e) => handleSubmit(e)} className="btn btn-success btn-block"> Fazer pedido!</button>
             </form>
 
         </div>
