@@ -27,7 +27,6 @@ export default function Home() {
     const [pizzasData, setPizzasData] = useState({});
     const [suggestionData, setSuggestionData] = useState([]);
     const [isCreatePizzaClicked, setIsCreatePizzaClicked] = useState(false);
-    const [pointsAmount, setPointsAmount] = useState(0);
 
     // Funções para capturar os resultados do backend
     useEffect(() => {
@@ -143,8 +142,6 @@ export default function Home() {
     // Função para salvar a montagem da pizza na base de dados
     async function handleSubmit(e) {
 
-        setPointsAmount(0);
-
         e.preventDefault();
 
         // Para armazenar os valores dos campos
@@ -171,12 +168,6 @@ export default function Home() {
 
         setPizzaSuggestion(e.target.value);
 
-        console.log('entrei aqui');
-
-        setPointsAmount(50);
-
-        console.log(pointsAmount);
-
         e.preventDefault();
 
         // Para armazenar os valores dos campos
@@ -186,10 +177,8 @@ export default function Home() {
                     size: suggestionData.data.randomSuggestion.size,
                     crustType: suggestionData.data.randomSuggestion.crustType,
                     flavor: suggestionData.data.randomSuggestion.flavor,
-                    points: pointsAmount
+                    points: 50
                 };
-
-                console.log(pointsAmount);
 
                 const response = await api.post('/pizzas', data);
 
