@@ -149,6 +149,7 @@ export default function Home() {
             size: pizzaSize,
             crustType: pizzaCrustType,
             flavor: pizzaFlavor,
+            points: 0
         };
 
         try {
@@ -156,6 +157,8 @@ export default function Home() {
 
             alert(`Feito: ${response.data.message}`);
             console.log({ data });
+
+            setIsCreatePizzaClicked(false);
 
         } catch (err) {
 
@@ -210,13 +213,13 @@ export default function Home() {
                         
                         <div className="row btns">
                             <div className="col-md">
-                                <button type="submit" className="btn btn-primary btn-sm" onClick={() => setIsCreatePizzaClicked(true)}> Monte sua pizza! </button>
+                                <button type="button" className="btn btn-primary btn-sm" onClick={() => setIsCreatePizzaClicked(true)}> Monte sua pizza! </button>
                             </div>
                         </div>
                     </div>
 
                     <div className="col-md-7">
-                        {isCreatePizzaClicked === false && (
+                        {!isCreatePizzaClicked && (
 
                             <div className="form-group">
                                 <Suggestion
